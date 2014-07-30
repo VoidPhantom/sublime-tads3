@@ -306,8 +306,10 @@ repository:
   literals-numeric:
     patterns:
     - name: constant.numeric.float.tads3
-      match: "(?:0|[1-9][0-9]*)(?:(?:\\.[0-9]*)?[Ee][+-]?[0-9]+|\\.[0-9]*)|\
-        \\.[0-9]+(?:[Ee][+-]?[0-9]+)"
+      match: |
+        (?x)
+        (?:0|[1-9][0-9]*) (?:(?:\.[0-9]*)? [Ee][+-]? [0-9]+ | \.[0-9]*) |
+        \.[0-9]+ (?:[Ee][+-]? [0-9]+)?
     - name: constant.numeric.octal.tads3
       match: 0[0-7]+(?![0-9])
     - name: invalid.illegal.bad-octal.tads3

@@ -367,7 +367,10 @@
 			<array>
 				<dict>
 					<key>match</key>
-					<string>(?:0|[1-9][0-9]*)(?:(?:\.[0-9]*)?[Ee][+-]?[0-9]+|\.[0-9]*)|\.[0-9]+(?:[Ee][+-]?[0-9]+)</string>
+					<string>(?x)
+(?:0|[1-9][0-9]*) (?:(?:\.[0-9]*)? [Ee][+-]? [0-9]+ | \.[0-9]*) |
+\.[0-9]+ (?:[Ee][+-]? [0-9]+)?
+</string>
 					<key>name</key>
 					<string>constant.numeric.float.tads3</string>
 				</dict>
