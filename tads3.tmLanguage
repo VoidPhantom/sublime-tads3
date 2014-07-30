@@ -1672,13 +1672,27 @@
 			<array>
 				<dict>
 					<key>match</key>
-					<string>\\(?:[\\&lt;&gt;"'\^v bnrt]|u[0-9A-Fa-f]{4}|x[0-9A-Fa-f]{2}|[0-7]{3})</string>
+					<string>(?x)
+\\(?:
+  [\\&lt;&gt;"'\^v bnrt] |
+  u[0-9A-Fa-f]{4} |
+  x[0-9A-Fa-f]{2} |
+  [0-7]{3}
+)
+</string>
 					<key>name</key>
 					<string>constant.character.escape.tads3</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>\\[^\\&lt;&gt;"'\^v bnrtux0-7]|\\u(?![0-9A-Fa-f])|\\u[0-9A-Fa-f](?![0-9A-Fa-f])|\\[0-9A-Fa-f]{2}(?![0-9A-Fa-f])|\\u[0-9A-Fa-f]{3}(?![0-9A-Fa-f])|\\[0-7](?![0-7])|\\[0-7]{2}(?![0-7])|\\x(?![0-9A-Fa-f])|\\x[0-9A-Fa-f](?![0-9A-Fa-f])</string>
+					<string>(?x)
+\\[^\\&lt;&gt;"'\^v bnrtux0-7]|
+\\u(?![0-9A-Fa-f]) | \\u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+  \\[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+  \\u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) |
+\\[0-7] (?![0-7]) | \\[0-7]{2} (?![0-7]) |
+\\x(?![0-9A-Fa-f]) | \\x[0-9A-Fa-f] (?![0-9A-Fa-f])
+</string>
 					<key>name</key>
 					<string>invalid.illegal.bad-escape.tads3</string>
 				</dict>
@@ -1816,7 +1830,24 @@
 						</dict>
 					</dict>
 					<key>match</key>
-					<string>&lt;([A-Za-z\.]+)\b(?:[^\\"&lt;&gt;]|"(?!")|""(?!")|(\\(?:[\\&lt;&gt;\^v bnrt]|u[0-9A-Fa-f]{4}|x[0-9A-Fa-f]{2}|[0-7]{3}|["']+))|(\\[^\\&lt;&gt;"'\^v bnrtux0-7]|\\u(?![0-9A-Fa-f])|\\u[0-9A-Fa-f](?![0-9A-Fa-f])|\\[0-9A-Fa-f]{2}(?![0-9A-Fa-f])|\\u[0-9A-Fa-f]{3}(?![0-9A-Fa-f])|\\[0-7](?![0-7])|\\[0-7]{2}(?![0-7])|\\x(?![0-9A-Fa-f])|\\x[0-9A-Fa-f](?![0-9A-Fa-f])))*&gt;</string>
+					<string>(?x)
+&lt;([A-Za-z\.]+)\b(?:
+[^\\"&lt;&gt;] | "(?!") | ""(?!") |
+(\\(?:
+  [\\&lt;&gt;\^v bnrt] |
+  u[0-9A-Fa-f]{4} |
+  x[0-9A-Fa-f]{2} |
+  [0-7]{3} |
+  ["']+
+)) |
+(\\[^\\&lt;&gt;"'\^v bnrtux0-7] |
+  \\u(?![0-9A-Fa-f]) | \\u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+    \\[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+    \\u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) |
+  \\[0-7] (?![0-7]) | \\[0-7]{2} (?![0-7]) |
+  \\x(?![0-9A-Fa-f]) | \\x[0-9A-Fa-f] (?![0-9A-Fa-f]))
+)*&gt;
+</string>
 					<key>name</key>
 					<string>meta.tag.html.begin.tads3</string>
 				</dict>
