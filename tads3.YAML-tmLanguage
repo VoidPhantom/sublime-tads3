@@ -21,11 +21,13 @@ repository:
         '1': {name: keyword.other.preprocessor.charset.tads3}
         '2': {name: string.quoted.double.charset.tads3}
     - name: meta.preprocessor.define.function.tads3
-      begin: "^\\s*#\\s*(define)\\s+([A-Za-z_][A-Za-z0-9_]*)\
-        \\((?:\
-          (?:\\s*([A-Za-z][A-Za-z0-9_]*))\\s*\
-          (?:,\\s*([A-Za-z_][A-Za-z0-9_]*)\\s*)*\
-        )?\\)"
+      begin: |
+        (?x)
+        ^\s*\#\s*(define)\s+ ([A-Za-z_][A-Za-z0-9_]*)
+        \((?:
+          (?:\s*  ([A-Za-z][A-Za-z0-9_]*)  )\s*
+          (?:,\s* ([A-Za-z_][A-Za-z0-9_]*) \s*)*
+        )?\)
       beginCaptures:
         '1': {name: keyword.other.preprocessor.define.tads3}
         '2': {name: entity.name.function.preprocessor.tads3}

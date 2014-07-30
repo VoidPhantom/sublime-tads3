@@ -1155,7 +1155,13 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>^\s*#\s*(define)\s+([A-Za-z_][A-Za-z0-9_]*)\((?:(?:\s*([A-Za-z][A-Za-z0-9_]*))\s*(?:,\s*([A-Za-z_][A-Za-z0-9_]*)\s*)*)?\)</string>
+					<string>(?x)
+^\s*\#\s*(define)\s+ ([A-Za-z_][A-Za-z0-9_]*)
+\((?:
+  (?:\s*  ([A-Za-z][A-Za-z0-9_]*)  )\s*
+  (?:,\s* ([A-Za-z_][A-Za-z0-9_]*) \s*)*
+)?\)
+</string>
 					<key>beginCaptures</key>
 					<dict>
 						<key>1</key>
