@@ -114,9 +114,10 @@ repository:
       patterns:
       - include: '#preprocessor-tokens'
     - name: meta.preprocessor.pragma.tads3.newline-spacing
-      match: "^\\s*#\\s*(pragma)\\s+(newline_spacing)\\s*\\(\\s*\
-        (collapse|delete|preserve|on|off)\
-        \\s*\\)\\s*$"
+      match: |
+        ^(?x)\s*\#\s* (pragma) \s+ (newline_spacing) \s*\(\s*
+          (collapse|delete|preserve|on|off)
+        \s*\)\s*$
       captures:
         '1': {name: keyword.other.preprocessor.pragma.tads3}
         '2': {name: keyword.other.preprocessor.pragma-newline-spacing.tads3}

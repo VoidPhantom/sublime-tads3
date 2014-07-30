@@ -1494,7 +1494,10 @@
 						</dict>
 					</dict>
 					<key>match</key>
-					<string>^\s*#\s*(pragma)\s+(newline_spacing)\s*\(\s*(collapse|delete|preserve|on|off)\s*\)\s*$</string>
+					<string>^(?x)\s*\#\s* (pragma) \s+ (newline_spacing) \s*\(\s*
+  (collapse|delete|preserve|on|off)
+\s*\)\s*$
+</string>
 					<key>name</key>
 					<string>meta.preprocessor.pragma.tads3.newline-spacing</string>
 				</dict>
