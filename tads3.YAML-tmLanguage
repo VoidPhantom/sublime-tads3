@@ -379,82 +379,56 @@ repository:
 
   literals-strings-interpolated:
     patterns:
-    - name: meta.string-interpolated.triple.double.tads3
+    - name: string.quoted.triple.double.tads3
       begin: "\"{3,}"
       end: "\"{3,}"
-      captures:
-        '0': {name: string.quoted.triple.double.tads3}
       patterns:
-      - begin: '<<'
+      - name: source.tads3.embedded.source
+        begin: '<<'
         end: '>>'
-        captures:
-          '0': {name: string.quoted.triple.double.tads3}
         patterns:
         - include: '#tokens'
-      - name: string.quoted.triple.double.tads3
-        begin: '(?<="""|>>)'
-        end: '(?="""|<<)'
-        patterns:
-        - name: constant.character.escape.tads3
-          match: "\\\\[\"']+"
-        - include: '#string-escapes'
-        - include: '#tags-in-triple-double'
-    - name: meta.string-interpolated.triple.single.tads3
+      - name: constant.character.escape.tads3
+        match: "\\\\[\"']+"
+      - include: '#string-escapes'
+      - include: '#tags-in-triple-double'
+    - name: string.quoted.triple.single.tads3
       begin: "'{3,}"
       end: "'{3,}"
-      captures:
-        '0': {name: string.quoted.triple.single.tads3}
       patterns:
-      - begin: '<<'
+      - name: source.tads3.embedded.source
+        begin: '<<'
         end: '>>'
-        captures:
-          '0': {name: string.quoted.triple.single.tads3}
         patterns:
         - include: '#tokens'
-      - name: string.quoted.triple.single.tads3
-        begin: "(?<='''|>>)"
-        end: "(?='''|<<)"
-        patterns:
-        - name: constant.character.escape.tads3
-          match: "\\\\[\"']+"
-        - include: '#string-escapes'
-        - include: '#tags-in-triple-single'
-    - name: meta.string-interpolated.double.tads3
+      - name: constant.character.escape.tads3
+        match: "\\\\[\"']+"
+      - include: '#string-escapes'
+      - include: '#tags-in-triple-single'
+    - name: string.quoted.double.tads3
       begin: "\""
       end: "\""
-      captures:
-        '0': {name: string.quoted.double.tads3}
       patterns:
-      - begin: '<<'
+      - name: source.tads3.embedded.source
+        begin: '<<'
         end: '>>'
-        captures:
-          '0': {name: string.quoted.double.tads3}
         patterns:
         - include: '#tokens'
-      - name: string.quoted.double.tads3.test
-        begin: '(?<="|>>)'
-        end: '(?="|<<)'
-        patterns:
-        - include: '#string-escapes'
-        - include: '#tags-in-double'
-    - name: meta.string-interpolated.single.tads3
+      - include: '#string-escapes'
+      - include: '#tags-in-double'
+    - name: string.quoted.single.tads3
       begin: "'"
       end: "'"
       captures:
         '0': {name: string.quoted.single.tads3}
       patterns:
-      - begin: '<<'
+      - name: source.tads3.embedded.source
+        begin: '<<'
         end: '>>'
-        captures:
-          '0': {name: string.quoted.single.tads3}
         patterns:
         - include: '#tokens'
-      - name: string.quoted.single.tads3
-        begin: '(?<=''|>>)'
-        end: '(?=''|<<)'
-        patterns:
-        - include: '#string-escapes'
-        - include: '#tags-in-single'
+      - include: '#string-escapes'
+      - include: '#tags-in-single'
 
   string-escapes:
     patterns:

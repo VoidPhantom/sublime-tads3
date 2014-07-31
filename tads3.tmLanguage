@@ -485,33 +485,19 @@
 				<dict>
 					<key>begin</key>
 					<string>"{3,}</string>
-					<key>captures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>string.quoted.triple.double.tads3</string>
-						</dict>
-					</dict>
 					<key>end</key>
 					<string>"{3,}</string>
 					<key>name</key>
-					<string>meta.string-interpolated.triple.double.tads3</string>
+					<string>string.quoted.triple.double.tads3</string>
 					<key>patterns</key>
 					<array>
 						<dict>
 							<key>begin</key>
 							<string>&lt;&lt;</string>
-							<key>captures</key>
-							<dict>
-								<key>0</key>
-								<dict>
-									<key>name</key>
-									<string>string.quoted.triple.double.tads3</string>
-								</dict>
-							</dict>
 							<key>end</key>
 							<string>&gt;&gt;</string>
+							<key>name</key>
+							<string>source.tads3.embedded.source</string>
 							<key>patterns</key>
 							<array>
 								<dict>
@@ -521,62 +507,37 @@
 							</array>
 						</dict>
 						<dict>
-							<key>begin</key>
-							<string>(?&lt;="""|&gt;&gt;)</string>
-							<key>end</key>
-							<string>(?="""|&lt;&lt;)</string>
+							<key>match</key>
+							<string>\\["']+</string>
 							<key>name</key>
-							<string>string.quoted.triple.double.tads3</string>
-							<key>patterns</key>
-							<array>
-								<dict>
-									<key>match</key>
-									<string>\\["']+</string>
-									<key>name</key>
-									<string>constant.character.escape.tads3</string>
-								</dict>
-								<dict>
-									<key>include</key>
-									<string>#string-escapes</string>
-								</dict>
-								<dict>
-									<key>include</key>
-									<string>#tags-in-triple-double</string>
-								</dict>
-							</array>
+							<string>constant.character.escape.tads3</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#string-escapes</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#tags-in-triple-double</string>
 						</dict>
 					</array>
 				</dict>
 				<dict>
 					<key>begin</key>
 					<string>'{3,}</string>
-					<key>captures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>string.quoted.triple.single.tads3</string>
-						</dict>
-					</dict>
 					<key>end</key>
 					<string>'{3,}</string>
 					<key>name</key>
-					<string>meta.string-interpolated.triple.single.tads3</string>
+					<string>string.quoted.triple.single.tads3</string>
 					<key>patterns</key>
 					<array>
 						<dict>
 							<key>begin</key>
 							<string>&lt;&lt;</string>
-							<key>captures</key>
-							<dict>
-								<key>0</key>
-								<dict>
-									<key>name</key>
-									<string>string.quoted.triple.single.tads3</string>
-								</dict>
-							</dict>
 							<key>end</key>
 							<string>&gt;&gt;</string>
+							<key>name</key>
+							<string>source.tads3.embedded.source</string>
 							<key>patterns</key>
 							<array>
 								<dict>
@@ -586,62 +547,37 @@
 							</array>
 						</dict>
 						<dict>
-							<key>begin</key>
-							<string>(?&lt;='''|&gt;&gt;)</string>
-							<key>end</key>
-							<string>(?='''|&lt;&lt;)</string>
+							<key>match</key>
+							<string>\\["']+</string>
 							<key>name</key>
-							<string>string.quoted.triple.single.tads3</string>
-							<key>patterns</key>
-							<array>
-								<dict>
-									<key>match</key>
-									<string>\\["']+</string>
-									<key>name</key>
-									<string>constant.character.escape.tads3</string>
-								</dict>
-								<dict>
-									<key>include</key>
-									<string>#string-escapes</string>
-								</dict>
-								<dict>
-									<key>include</key>
-									<string>#tags-in-triple-single</string>
-								</dict>
-							</array>
+							<string>constant.character.escape.tads3</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#string-escapes</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#tags-in-triple-single</string>
 						</dict>
 					</array>
 				</dict>
 				<dict>
 					<key>begin</key>
 					<string>"</string>
-					<key>captures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>string.quoted.double.tads3</string>
-						</dict>
-					</dict>
 					<key>end</key>
 					<string>"</string>
 					<key>name</key>
-					<string>meta.string-interpolated.double.tads3</string>
+					<string>string.quoted.double.tads3</string>
 					<key>patterns</key>
 					<array>
 						<dict>
 							<key>begin</key>
 							<string>&lt;&lt;</string>
-							<key>captures</key>
-							<dict>
-								<key>0</key>
-								<dict>
-									<key>name</key>
-									<string>string.quoted.double.tads3</string>
-								</dict>
-							</dict>
 							<key>end</key>
 							<string>&gt;&gt;</string>
+							<key>name</key>
+							<string>source.tads3.embedded.source</string>
 							<key>patterns</key>
 							<array>
 								<dict>
@@ -651,23 +587,12 @@
 							</array>
 						</dict>
 						<dict>
-							<key>begin</key>
-							<string>(?&lt;="|&gt;&gt;)</string>
-							<key>end</key>
-							<string>(?="|&lt;&lt;)</string>
-							<key>name</key>
-							<string>string.quoted.double.tads3.test</string>
-							<key>patterns</key>
-							<array>
-								<dict>
-									<key>include</key>
-									<string>#string-escapes</string>
-								</dict>
-								<dict>
-									<key>include</key>
-									<string>#tags-in-double</string>
-								</dict>
-							</array>
+							<key>include</key>
+							<string>#string-escapes</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#tags-in-double</string>
 						</dict>
 					</array>
 				</dict>
@@ -685,22 +610,16 @@
 					<key>end</key>
 					<string>'</string>
 					<key>name</key>
-					<string>meta.string-interpolated.single.tads3</string>
+					<string>string.quoted.single.tads3</string>
 					<key>patterns</key>
 					<array>
 						<dict>
 							<key>begin</key>
 							<string>&lt;&lt;</string>
-							<key>captures</key>
-							<dict>
-								<key>0</key>
-								<dict>
-									<key>name</key>
-									<string>string.quoted.single.tads3</string>
-								</dict>
-							</dict>
 							<key>end</key>
 							<string>&gt;&gt;</string>
+							<key>name</key>
+							<string>source.tads3.embedded.source</string>
 							<key>patterns</key>
 							<array>
 								<dict>
@@ -710,23 +629,12 @@
 							</array>
 						</dict>
 						<dict>
-							<key>begin</key>
-							<string>(?&lt;='|&gt;&gt;)</string>
-							<key>end</key>
-							<string>(?='|&lt;&lt;)</string>
-							<key>name</key>
-							<string>string.quoted.single.tads3</string>
-							<key>patterns</key>
-							<array>
-								<dict>
-									<key>include</key>
-									<string>#string-escapes</string>
-								</dict>
-								<dict>
-									<key>include</key>
-									<string>#tags-in-single</string>
-								</dict>
-							</array>
+							<key>include</key>
+							<string>#string-escapes</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#tags-in-single</string>
 						</dict>
 					</array>
 				</dict>
