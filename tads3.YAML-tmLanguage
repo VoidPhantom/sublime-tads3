@@ -470,12 +470,13 @@ repository:
     - name: invalid.illegal.bad-escape.tads3
       match: |
         (?x)
-        \\[^\\<>"'\^v bnrtux0-7] | # not one of valid continuations
-        \\u(?![0-9A-Fa-f]) | \\u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
-          \\[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
-          \\u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
-        \\[0-7] (?![0-7]) | \\[0-7]{2} (?![0-7]) | # bad 3-digit octal
-        \\x(?![0-9A-Fa-f]) | \\x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+        (\\(?:[^\\<>"'\^v bnrtux0-7] | # not one of valid continuations
+          u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+          [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
+          x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+        ))
 
   tags-common:
     patterns:
@@ -503,7 +504,7 @@ repository:
         )) |                            # or a bad escape.
         (\\(?:[^\\<>"'\^v bnrtux0-7] | # not one of valid continuations
           u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
-            [0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
             u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
           [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
           x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
@@ -530,7 +531,7 @@ repository:
         )) |                            # or a bad escape.
         (\\(?:[^\\<>"'\^v bnrtux0-7] | # not one of valid continuations
           u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
-            [0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
             u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
           [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
           x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
@@ -556,7 +557,7 @@ repository:
         )) |                            # or a bad escape.
         (\\(?:[^\\<>"'\^v bnrtux0-7] | # not one of valid continuations
           u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
-            [0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
             u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
           [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
           x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
@@ -582,7 +583,7 @@ repository:
         )) |                            # or a bad escape.
         (\\(?:[^\\<>"'\^v bnrtux0-7] | # not one of valid continuations
           u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
-            [0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
             u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
           [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
           x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
@@ -602,8 +603,8 @@ repository:
     - match: \.\.\.
     - match: \.\.
     - match: \.
-    - match: '{'
-    - match: '}'
+    - match: '\{'
+    - match: '\}'
     - match: '\['
     - match: '\]'
     - name: keyword.operator.eq.tads3
@@ -660,7 +661,7 @@ repository:
       match: '<<'
     - name: keyword.operator.lt.tads3
       match: '<'
-    - match: ;
+    - match: ';'
     - name: keyword.operator.logical.and.tads3
       match: '&&'
     - name: keyword.operator.assign.and.tads3

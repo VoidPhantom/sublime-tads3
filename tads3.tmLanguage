@@ -861,11 +861,11 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>{</string>
+					<string>\{</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>}</string>
+					<string>\}</string>
 				</dict>
 				<dict>
 					<key>match</key>
@@ -1686,12 +1686,13 @@
 				<dict>
 					<key>match</key>
 					<string>(?x)
-\\[^\\&lt;&gt;"'\^v bnrtux0-7] | # not one of valid continuations
-\\u(?![0-9A-Fa-f]) | \\u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
-  \\[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
-  \\u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
-\\[0-7] (?![0-7]) | \\[0-7]{2} (?![0-7]) | # bad 3-digit octal
-\\x(?![0-9A-Fa-f]) | \\x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+(\\(?:[^\\&lt;&gt;"'\^v bnrtux0-7] | # not one of valid continuations
+  u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+    u[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+    u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+  [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
+  x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+))
 </string>
 					<key>name</key>
 					<string>invalid.illegal.bad-escape.tads3</string>
@@ -1773,7 +1774,7 @@
 )) |                            # or a bad escape.
 (\\(?:[^\\&lt;&gt;"'\^v bnrtux0-7] | # not one of valid continuations
   u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
-    [0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+    u[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
     u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
   [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
   x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
@@ -1823,7 +1824,7 @@
 )) |                            # or a bad escape.
 (\\(?:[^\\&lt;&gt;"'\^v bnrtux0-7] | # not one of valid continuations
   u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
-    [0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+    u[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
     u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
   [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
   x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
@@ -1874,7 +1875,7 @@
 )) |                            # or a bad escape.
 (\\(?:[^\\&lt;&gt;"'\^v bnrtux0-7] | # not one of valid continuations
   u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
-    [0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+    u[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
     u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
   [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
   x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
@@ -1925,7 +1926,7 @@
 )) |                            # or a bad escape.
 (\\(?:[^\\&lt;&gt;"'\^v bnrtux0-7] | # not one of valid continuations
   u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
-    [0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+    u[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
     u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
   [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
   x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
