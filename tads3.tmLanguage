@@ -1674,10 +1674,10 @@
 					<key>match</key>
 					<string>(?x)
 \\(?:
-  [\\&lt;&gt;"'\^v bnrt] |
-  u[0-9A-Fa-f]{4} |
-  x[0-9A-Fa-f]{2} |
-  [0-7]{3}
+  [\\&lt;&gt;"'\^v bnrt] | # simple ones
+  u[0-9A-Fa-f]{4} |  # 4-digit hex
+  x[0-9A-Fa-f]{2} |  # 2-digit hex
+  [0-7]{3}           # 3-digit octal
 )
 </string>
 					<key>name</key>
@@ -1686,12 +1686,12 @@
 				<dict>
 					<key>match</key>
 					<string>(?x)
-\\[^\\&lt;&gt;"'\^v bnrtux0-7]|
+\\[^\\&lt;&gt;"'\^v bnrtux0-7] | # not one of valid continuations
 \\u(?![0-9A-Fa-f]) | \\u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
   \\[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
-  \\u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) |
-\\[0-7] (?![0-7]) | \\[0-7]{2} (?![0-7]) |
-\\x(?![0-9A-Fa-f]) | \\x[0-9A-Fa-f] (?![0-9A-Fa-f])
+  \\u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+\\[0-7] (?![0-7]) | \\[0-7]{2} (?![0-7]) | # bad 3-digit octal
+\\x(?![0-9A-Fa-f]) | \\x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
 </string>
 					<key>name</key>
 					<string>invalid.illegal.bad-escape.tads3</string>
@@ -1762,7 +1762,23 @@
 						</dict>
 					</dict>
 					<key>match</key>
-					<string>&lt;([A-Za-z\.]+)\b(?:[^\\"&lt;&gt;]|(\\(?:[\\&lt;&gt;"'\^v bnrt]|u[0-9A-Fa-f]{4}|x[0-9A-Fa-f]{2}|[0-7]{3}))|(\\[^\\&lt;&gt;"'\^v bnrtux0-7]|\\u(?![0-9A-Fa-f])|\\u[0-9A-Fa-f](?![0-9A-Fa-f])|\\[0-9A-Fa-f]{2}(?![0-9A-Fa-f])|\\u[0-9A-Fa-f]{3}(?![0-9A-Fa-f])|\\[0-7](?![0-7])|\\[0-7]{2}(?![0-7])|\\x(?![0-9A-Fa-f])|\\x[0-9A-Fa-f](?![0-9A-Fa-f])))*&gt;</string>
+					<string>(?x)
+&lt;([A-Za-z\.]+)\b(?:             # tag name, followed by...
+[^\\"&lt;&gt;]                        # a safe char...
+(\\(?:                          # or a good escape...
+  [\\&lt;&gt;"'\^v bnrt] | # simple ones
+  u[0-9A-Fa-f]{4} |  # 4-digit hex
+  x[0-9A-Fa-f]{2} |  # 2-digit hex
+  [0-7]{3}           # 3-digit octal
+)) |                            # or a bad escape.
+(\\(?:[^\\&lt;&gt;"'\^v bnrtux0-7] | # not one of valid continuations
+  u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+    [0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+    u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+  [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
+  x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+)))*&gt;
+</string>
 					<key>name</key>
 					<string>meta.tag.html.begin.tads3</string>
 				</dict>
@@ -1796,7 +1812,23 @@
 						</dict>
 					</dict>
 					<key>match</key>
-					<string>&lt;([A-Za-z\.]+)\b(?:[^\\'&lt;&gt;]|(\\(?:[\\&lt;&gt;"'\^v bnrt]|u[0-9A-Fa-f]{4}|x[0-9A-Fa-f]{2}|[0-7]{3}))|(\\[^\\&lt;&gt;"'\^v bnrtux0-7]|\\u(?![0-9A-Fa-f])|\\u[0-9A-Fa-f](?![0-9A-Fa-f])|\\[0-9A-Fa-f]{2}(?![0-9A-Fa-f])|\\u[0-9A-Fa-f]{3}(?![0-9A-Fa-f])|\\[0-7](?![0-7])|\\[0-7]{2}(?![0-7])|\\x(?![0-9A-Fa-f])|\\x[0-9A-Fa-f](?![0-9A-Fa-f])))*&gt;</string>
+					<string>(?x)
+&lt;([A-Za-z\.]+)\b(?:             # tag name, followed by...
+[^\\'&lt;&gt;]                        # a safe char...
+(\\(?:                          # or a good escape...
+  [\\&lt;&gt;"'\^v bnrt] | # simple ones
+  u[0-9A-Fa-f]{4} |  # 4-digit hex
+  x[0-9A-Fa-f]{2} |  # 2-digit hex
+  [0-7]{3}           # 3-digit octal
+)) |                            # or a bad escape.
+(\\(?:[^\\&lt;&gt;"'\^v bnrtux0-7] | # not one of valid continuations
+  u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+    [0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+    u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+  [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
+  x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+)))*&gt;
+</string>
 					<key>name</key>
 					<string>meta.tag.html.begin.tads3</string>
 				</dict>
@@ -1831,22 +1863,22 @@
 					</dict>
 					<key>match</key>
 					<string>(?x)
-&lt;([A-Za-z\.]+)\b(?:
-[^\\"&lt;&gt;] | "(?!") | ""(?!") |
-(\\(?:
-  [\\&lt;&gt;\^v bnrt] |
-  u[0-9A-Fa-f]{4} |
-  x[0-9A-Fa-f]{2} |
-  [0-7]{3} |
-  ["']+
-)) |
-(\\[^\\&lt;&gt;"'\^v bnrtux0-7] |
-  \\u(?![0-9A-Fa-f]) | \\u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
-    \\[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
-    \\u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) |
-  \\[0-7] (?![0-7]) | \\[0-7]{2} (?![0-7]) |
-  \\x(?![0-9A-Fa-f]) | \\x[0-9A-Fa-f] (?![0-9A-Fa-f]))
-)*&gt;
+&lt;([A-Za-z\.]+)\b(?:             # tag name, followed by...
+[^\\"&lt;&gt;] | "(?!") | ""(?!") |   # a safe char, or a non-closing quote...
+(\\(?:                          # or a good escape...
+  [\\&lt;&gt;\^v bnrt]  | # simple ones
+  u[0-9A-Fa-f]{4} | # 4-digit hex
+  x[0-9A-Fa-f]{2} | # 2-digit hex
+  [0-7]{3} |        # 3-digit octal
+  ["']+             # special triple-quote escape
+)) |                            # or a bad escape.
+(\\(?:[^\\&lt;&gt;"'\^v bnrtux0-7] | # not one of valid continuations
+  u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+    [0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+    u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+  [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
+  x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+)))*&gt;
 </string>
 					<key>name</key>
 					<string>meta.tag.html.begin.tads3</string>
@@ -1881,7 +1913,24 @@
 						</dict>
 					</dict>
 					<key>match</key>
-					<string>&lt;([A-Za-z\.]+)\b(?:[^\\'&lt;&gt;]|'(?!')|''(?!')|(\\(?:[\\&lt;&gt;\^v bnrt]|u[0-9A-Fa-f]{4}|x[0-9A-Fa-f]{2}|[0-7]{3}|["']+))|(\\[^\\&lt;&gt;"'\^v bnrtux0-7]|\\u(?![0-9A-Fa-f])|\\u[0-9A-Fa-f](?![0-9A-Fa-f])|\\[0-9A-Fa-f]{2}(?![0-9A-Fa-f])|\\u[0-9A-Fa-f]{3}(?![0-9A-Fa-f])|\\[0-7](?![0-7])|\\[0-7]{2}(?![0-7])|\\x(?![0-9A-Fa-f])|\\x[0-9A-Fa-f](?![0-9A-Fa-f])))*&gt;</string>
+					<string>(?x)
+&lt;([A-Za-z\.]+)\b(?:             # tag name, followed by...
+[^\\'&lt;&gt;] | '(?!') | ''(?!') |   # a safe char, or a non-closing quote...
+(\\(?:                          # or a good escape...
+  [\\&lt;&gt;\^v bnrt]  | # simple ones
+  u[0-9A-Fa-f]{4} | # 4-digit hex
+  x[0-9A-Fa-f]{2} | # 2-digit hex
+  [0-7]{3} |        # 3-digit octal
+  ["']+             # special triple-quote escape
+)) |                            # or a bad escape.
+(\\(?:[^\\&lt;&gt;"'\^v bnrtux0-7] | # not one of valid continuations
+  u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+    [0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+    u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+  [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
+  x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+)))*&gt;
+</string>
 					<key>name</key>
 					<string>meta.tag.html.begin.tads3</string>
 				</dict>

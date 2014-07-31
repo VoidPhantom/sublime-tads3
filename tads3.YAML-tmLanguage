@@ -462,20 +462,20 @@ repository:
       match: |
         (?x)
         \\(?:
-          [\\<>"'\^v bnrt] |
-          u[0-9A-Fa-f]{4} |
-          x[0-9A-Fa-f]{2} |
-          [0-7]{3}
+          [\\<>"'\^v bnrt] | # simple ones
+          u[0-9A-Fa-f]{4} |  # 4-digit hex
+          x[0-9A-Fa-f]{2} |  # 2-digit hex
+          [0-7]{3}           # 3-digit octal
         )
     - name: invalid.illegal.bad-escape.tads3
       match: |
         (?x)
-        \\[^\\<>"'\^v bnrtux0-7]|
+        \\[^\\<>"'\^v bnrtux0-7] | # not one of valid continuations
         \\u(?![0-9A-Fa-f]) | \\u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
           \\[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
-          \\u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) |
-        \\[0-7] (?![0-7]) | \\[0-7]{2} (?![0-7]) |
-        \\x(?![0-9A-Fa-f]) | \\x[0-9A-Fa-f] (?![0-9A-Fa-f])
+          \\u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+        \\[0-7] (?![0-7]) | \\[0-7]{2} (?![0-7]) | # bad 3-digit octal
+        \\x(?![0-9A-Fa-f]) | \\x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
 
   tags-common:
     patterns:
@@ -492,22 +492,22 @@ repository:
     - name: meta.tag.html.begin.tads3
       match: |
         (?x)
-        <([A-Za-z\.]+)\b(?:
-        [^\\"<>] | "(?!") | ""(?!") |
-        (\\(?:
-          [\\<>\^v bnrt] |
-          u[0-9A-Fa-f]{4} |
-          x[0-9A-Fa-f]{2} |
-          [0-7]{3} |
-          ["']+
-        )) |
-        (\\[^\\<>"'\^v bnrtux0-7] |
-          \\u(?![0-9A-Fa-f]) | \\u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
-            \\[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
-            \\u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) |
-          \\[0-7] (?![0-7]) | \\[0-7]{2} (?![0-7]) |
-          \\x(?![0-9A-Fa-f]) | \\x[0-9A-Fa-f] (?![0-9A-Fa-f]))
-        )*>
+        <([A-Za-z\.]+)\b(?:             # tag name, followed by...
+        [^\\"<>] | "(?!") | ""(?!") |   # a safe char, or a non-closing quote...
+        (\\(?:                          # or a good escape...
+          [\\<>\^v bnrt]  | # simple ones
+          u[0-9A-Fa-f]{4} | # 4-digit hex
+          x[0-9A-Fa-f]{2} | # 2-digit hex
+          [0-7]{3} |        # 3-digit octal
+          ["']+             # special triple-quote escape
+        )) |                            # or a bad escape.
+        (\\(?:[^\\<>"'\^v bnrtux0-7] | # not one of valid continuations
+          u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+            [0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+          [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
+          x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+        )))*>
       captures:
         '1': {name: entity.name.tag.tads3}
         '2': {name: constant.character.escape.tads3}
@@ -517,17 +517,24 @@ repository:
     patterns:
     - include: '#tags-common'
     - name: meta.tag.html.begin.tads3
-      match: "<([A-Za-z\\.]+)\\b(?:\
-        [^\\\\'<>]|'(?!')|''(?!')|\
-        (\\\\(?:[\\\\<>\\^v bnrt]|\
-          u[0-9A-Fa-f]{4}|x[0-9A-Fa-f]{2}|[0-7]{3}|[\"']+))|\
-        (\\\\[^\\\\<>\"'\\^v bnrtux0-7]|\
-          \\\\u(?![0-9A-Fa-f])|\\\\u[0-9A-Fa-f](?![0-9A-Fa-f])|\
-            \\\\[0-9A-Fa-f]{2}(?![0-9A-Fa-f])|\
-            \\\\u[0-9A-Fa-f]{3}(?![0-9A-Fa-f])|\
-          \\\\[0-7](?![0-7])|\\\\[0-7]{2}(?![0-7])|\
-          \\\\x(?![0-9A-Fa-f])|\\\\x[0-9A-Fa-f](?![0-9A-Fa-f]))\
-        )*>"
+      match: |
+        (?x)
+        <([A-Za-z\.]+)\b(?:             # tag name, followed by...
+        [^\\'<>] | '(?!') | ''(?!') |   # a safe char, or a non-closing quote...
+        (\\(?:                          # or a good escape...
+          [\\<>\^v bnrt]  | # simple ones
+          u[0-9A-Fa-f]{4} | # 4-digit hex
+          x[0-9A-Fa-f]{2} | # 2-digit hex
+          [0-7]{3} |        # 3-digit octal
+          ["']+             # special triple-quote escape
+        )) |                            # or a bad escape.
+        (\\(?:[^\\<>"'\^v bnrtux0-7] | # not one of valid continuations
+          u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+            [0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+          [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
+          x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+        )))*>
       captures:
         '1': {name: entity.name.tag.tads3}
         '2': {name: constant.character.escape.tads3}
@@ -537,17 +544,23 @@ repository:
     patterns:
     - include: '#tags-common'
     - name: meta.tag.html.begin.tads3
-      match: "<([A-Za-z\\.]+)\\b(?:\
-        [^\\\\\"<>]|\
-        (\\\\(?:[\\\\<>\"'\\^v bnrt]|\
-          u[0-9A-Fa-f]{4}|x[0-9A-Fa-f]{2}|[0-7]{3}))|\
-        (\\\\[^\\\\<>\"'\\^v bnrtux0-7]|\
-          \\\\u(?![0-9A-Fa-f])|\\\\u[0-9A-Fa-f](?![0-9A-Fa-f])|\
-            \\\\[0-9A-Fa-f]{2}(?![0-9A-Fa-f])|\
-            \\\\u[0-9A-Fa-f]{3}(?![0-9A-Fa-f])|\
-          \\\\[0-7](?![0-7])|\\\\[0-7]{2}(?![0-7])|\
-          \\\\x(?![0-9A-Fa-f])|\\\\x[0-9A-Fa-f](?![0-9A-Fa-f]))\
-        )*>"
+      match: |
+        (?x)
+        <([A-Za-z\.]+)\b(?:             # tag name, followed by...
+        [^\\"<>]                        # a safe char...
+        (\\(?:                          # or a good escape...
+          [\\<>"'\^v bnrt] | # simple ones
+          u[0-9A-Fa-f]{4} |  # 4-digit hex
+          x[0-9A-Fa-f]{2} |  # 2-digit hex
+          [0-7]{3}           # 3-digit octal
+        )) |                            # or a bad escape.
+        (\\(?:[^\\<>"'\^v bnrtux0-7] | # not one of valid continuations
+          u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+            [0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+          [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
+          x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+        )))*>
       captures:
         '1': {name: entity.name.tag.tads3}
         '2': {name: constant.character.escape.tads3}
@@ -557,17 +570,23 @@ repository:
     patterns:
     - include: '#tags-common'
     - name: meta.tag.html.begin.tads3
-      match: "<([A-Za-z\\.]+)\\b(?:\
-        [^\\\\'<>]|\
-        (\\\\(?:[\\\\<>\"'\\^v bnrt]|\
-          u[0-9A-Fa-f]{4}|x[0-9A-Fa-f]{2}|[0-7]{3}))|\
-        (\\\\[^\\\\<>\"'\\^v bnrtux0-7]|\
-          \\\\u(?![0-9A-Fa-f])|\\\\u[0-9A-Fa-f](?![0-9A-Fa-f])|\
-            \\\\[0-9A-Fa-f]{2}(?![0-9A-Fa-f])|\
-            \\\\u[0-9A-Fa-f]{3}(?![0-9A-Fa-f])|\
-          \\\\[0-7](?![0-7])|\\\\[0-7]{2}(?![0-7])|\
-          \\\\x(?![0-9A-Fa-f])|\\\\x[0-9A-Fa-f](?![0-9A-Fa-f]))\
-        )*>"
+      match: |
+        (?x)
+        <([A-Za-z\.]+)\b(?:             # tag name, followed by...
+        [^\\'<>]                        # a safe char...
+        (\\(?:                          # or a good escape...
+          [\\<>"'\^v bnrt] | # simple ones
+          u[0-9A-Fa-f]{4} |  # 4-digit hex
+          x[0-9A-Fa-f]{2} |  # 2-digit hex
+          [0-7]{3}           # 3-digit octal
+        )) |                            # or a bad escape.
+        (\\(?:[^\\<>"'\^v bnrtux0-7] | # not one of valid continuations
+          u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+            [0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+          [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
+          x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+        )))*>
       captures:
         '1': {name: entity.name.tag.tads3}
         '2': {name: constant.character.escape.tads3}
