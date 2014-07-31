@@ -1729,7 +1729,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>{[A-Za-z0-9/ \-_]*}</string>
+					<string>\{[A-Za-z0-9/ \-_]*\}</string>
 					<key>name</key>
 					<string>meta.tag.curly.tads3</string>
 				</dict>

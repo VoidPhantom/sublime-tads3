@@ -485,7 +485,7 @@ repository:
       captures:
         '1': {name: entity.name.tag.tads3}
     - name: meta.tag.curly.tads3
-      match: '{[A-Za-z0-9/ \-_]*}'
+      match: '\{[A-Za-z0-9/ \-_]*\}'
 
   tags-in-triple-double:
     patterns:
