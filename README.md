@@ -1,7 +1,7 @@
 TADS 3 syntax for Sublime Text
 ==============================
 
-This is the Sublime Text package that provides syntax support for the [TADS 3](http://www.tads.org/) language.
+This is the Sublime Text package that provides syntax support for the [TADS 3](https://www.tads.org/) language.
 
 This package can be installed via [Package Control for Sublime Text](https://sublime.wbond.net/installation) under the name `TADS3`.
 
